@@ -9,7 +9,7 @@ require([
     "esri/PopupTemplate"
   ], function(esriConfig, Map, MapView, FeatureLayer, Legend, Expand, Search, PopupTemplate) {
     
-    esriConfig.apiKey = "AAPT3NKHt6i2urmWtqOuugvr9eCsBZ6_O8t9W_sCdDNnfgUbGJC7ScqrW9nQ2fhswXIxIh_rZRBLGiNPs36SaZQqvi1FuRGC6KrpFHzc-SmN8T4KxaW4gimByKZTQBCQVKZSEW7wFCeL5mIQE93p-9oj6WkrWQBQJrkipkTEpywUJnKA2IHp9c5khQ5bMmnU4e5ha7GsSqln6X3atQcE6pghKomIHt2jIwQ2zgG7zfjWagOL7YmJMNu3aaw0k9OvAoap";
+    esriConfig.apiKey = "AAPT3NKHt6i2urmWtqOuugvr9eCsBZ6_O8t9W_sCdDNnfgVeGpGyrAKjIt6YWioT05b4pLO8P-7kjwO0LbTPbH56kRdtaGp5vKyEKYGzJmHw15LrZmvo3lPdUAsm1qCai54-aN2vSaJ40j0bkXsAqzaygswxowSWkpvcy9tL7ylWNgndIkYadL7IddIRtYBYH2gcB8Ep-n2aYomRPGfjycTvaNj6P6sLmfn4NTx-l2HumX5YggTjrKtj3S_6QPwAhxPv";
 
     // Créer la carte avec un fond de carte satellite
     const map = new Map({
@@ -342,7 +342,7 @@ function queryFeatureLayer(extent) {
   const parcelQuery = {
     where: whereClause, // Clause WHERE
     geometry: extent, // Géométrie pour la requête spatiale
-    outFields: ["NOM_CAIDAT","Pop_Caidat", "Nb_Commun", "Sup_Caidat"], // Champs à retourner
+    outFields: ["NOM_CAIDAT","PROVINCE_C","Pop_Caidat", "Nb_Commun", "Sup_Caidat"], // Champs à retourner
     returnGeometry: true // Retourner la géométrie des entités
   };
 
@@ -377,7 +377,7 @@ function displayResults(results) {
   const popupTemplate = {
     title : "Caidats : {NOM_CAIDAT}",
 
-    content: "  Nom : {NOM_CAIDAT} <br> Population : {Pop_Caidat} <br> Nombre Communes : {Nb_Commun} <br> Superficie : {Sup_Caidat}Km²" 
+    content: "  Nom : {NOM_CAIDAT} <br> Province : {PROVINCE_C} <br> Population : {Pop_Caidat} <br> Nombre Communes : {Nb_Commun} <br> Superficie : {Sup_Caidat}Km²" 
   };
 
   // Appliquer les symboles et popupTemplate à chaque entité retournée
