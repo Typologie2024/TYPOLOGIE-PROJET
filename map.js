@@ -376,8 +376,8 @@ function displayResults(results) {
 
   const popupTemplate = {
     title : "Caidats : {NOM_CAIDAT}",
-    content: "  Nom : {NOM_CAIDAT} <br> Population : {Pop_Caidat} <br> Nombre Communes : {Nb_Commun} <br> Superficie : {Sup_Caidat}Km² "
-  
+
+    content: "  Nom : {NOM_CAIDAT} <br> Population : {Pop_Caidat} <br> Nombre Communes : {Nb_Commun} <br> Superficie : {Sup_Caidat}Km²" 
   };
 
   // Appliquer les symboles et popupTemplate à chaque entité retournée
