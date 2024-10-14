@@ -376,7 +376,7 @@ function displayResults(results) {
 
   const popupTemplate = {
     title : "Caidats : {NOM_CAIDAT}",
-    content: "  Nom : {NOM_CAIDAT}, Population : {Pop_Caidat} <br> Nombre Caidats : {Nb_Commun} <br> Superficie : {Sup_Caidat} "
+    content: "  Nom : {NOM_CAIDAT} <br> Population : {Pop_Caidat} <br> Nombre Caidats : {Nb_Commun} <br> Superficie : {Sup_Caidat}Km² "
   
   };
 
