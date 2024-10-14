@@ -9,7 +9,7 @@ require([
     "esri/PopupTemplate"
   ], function(esriConfig, Map, MapView, FeatureLayer, Legend, Expand, Search, PopupTemplate) {
     
-    esriConfig.apiKey = "AAPT3NKHt6i2urmWtqOuugvr9eCsBZ6_O8t9W_sCdDNnfgV40N0URFbv-KgjqbS4mTheKu5y81BvJJ4dszFoBBCh4RzpqbNT-vIqC_VJQh0JIontP0nrqY_7RVr8-cF5ZVdRU9_IOD0uaM1aOt-NAMlkuaR_33uE_h6Cc_PBQtl-c1dHwWkKEl-GyEdaJJoy9JqkqFVzfRJFNzj7cHFRdJeU47jaOs7NnOK7vZ8u_bmJQjSQwtYtJKscLjmLQyqLM-je";
+    esriConfig.apiKey = "AAPT3NKHt6i2urmWtqOuugvr9eCsBZ6_O8t9W_sCdDNnfgUbGJC7ScqrW9nQ2fhswXIxIh_rZRBLGiNPs36SaZQqvi1FuRGC6KrpFHzc-SmN8T4KxaW4gimByKZTQBCQVKZSEW7wFCeL5mIQE93p-9oj6WkrWQBQJrkipkTEpywUJnKA2IHp9c5khQ5bMmnU4e5ha7GsSqln6X3atQcE6pghKomIHt2jIwQ2zgG7zfjWagOL7YmJMNu3aaw0k9OvAoap";
 
     // Créer la carte avec un fond de carte satellite
     const map = new Map({
@@ -376,7 +376,7 @@ function displayResults(results) {
 
   const popupTemplate = {
     title : "Caidats : {NOM_CAIDAT}",
-    content: "  Nom : {NOM_CAIDAT} <br> Population : {Pop_Caidat} <br> Nombre Caidats : {Nb_Commun} <br> Superficie : {Sup_Caidat}Km² "
+    content: "  Nom : {NOM_CAIDAT} <br> Population : {Pop_Caidat} <br> Nombre Communes : {Nb_Commun} <br> Superficie : {Sup_Caidat}Km² "
   
   };
 
