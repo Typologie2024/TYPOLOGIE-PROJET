@@ -9,7 +9,7 @@ require([
     "esri/PopupTemplate"
   ], function(esriConfig, Map, MapView, FeatureLayer, Legend, Expand, Search, PopupTemplate) {
     
-    esriConfig.apiKey = "AAPT3NKHt6i2urmWtqOuugvr9eCsBZ6_O8t9W_sCdDNnfgVeGpGyrAKjIt6YWioT05b4pLO8P-7kjwO0LbTPbH56kRdtaGp5vKyEKYGzJmHw15LrZmvo3lPdUAsm1qCai54-aN2vSaJ40j0bkXsAqzaygswxowSWkpvcy9tL7ylWNgndIkYadL7IddIRtYBYH2gcB8Ep-n2aYomRPGfjycTvaNj6P6sLmfn4NTx-l2HumX5YggTjrKtj3S_6QPwAhxPv";
+    esriConfig.apiKey = "AAPT3NKHt6i2urmWtqOuugvr9eCsBZ6_O8t9W_sCdDNnfgVxRbnnwBU1AZKN8QPdS1DqeWN46CeGVLu623i0FnsYETa0cd3tX-8lm3B27-3QF5rYgh0UoKt6xqaIwz7sdEZwYs1ZUfCMdgVFMdVoKaxb8otVfoBezvqc9kGFuw9uX9O3Gq7Khqxkld77yRVyvezX9tJPk0R8w_RDCAk_5QwO0DJqYvDB-7A4vyAGLHMIKssopx5zBSmDEY305AuO9jwQ";
 
     // Créer la carte avec un fond de carte satellite
     const map = new Map({
