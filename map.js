@@ -9,7 +9,7 @@ require([
     "esri/PopupTemplate"
   ], function(esriConfig, Map, MapView, FeatureLayer, Legend, Expand, Search, PopupTemplate) {
     
-    esriConfig.apiKey = "AAPT3NKHt6i2urmWtqOuugvr9eCsBZ6_O8t9W_sCdDNnfgWNT7S4PlCA6sMOjR3XzTFZagAQTk7vX17YREzz12kW2cuYgXGRno-Xv1sz6oqKz4lUmjYr_D_Pt3fhAL8IsGjffsv2S6GWMbQUU3JMVylbxUr_SLEhEdIAabVjzk4qJ5cpyNogf-AIac19uh8EbgMVi6EWQE7rPteEllDmHnHOjzewTQm9BUpBb-8_DTRtE11QhqS42srt17COXU6Y666z";
+    esriConfig.apiKey = "AAPT3NKHt6i2urmWtqOuugvr9eCsBZ6_O8t9W_sCdDNnfgW08GHta962zVBlg3cjNTLGZhv6V2ddUXE595GPthxOVowBaENeP1d6_JGiVhn-7y3vLoNZ4c38cLi_4xnpjT-_vs4wmvjhyBUwyfzqYf3seXloyMOEdo4orocI1XMTCMb8rARU7kCrg4SQDqiBiZNtFAF-erfxNZkqFZZ2N4o4Tr5Y--MpYE1WBxsEp83nNWyHXcg9_CP9VdN15Hghdbxc";
 
     // Créer la carte avec un fond de carte satellite
     const map = new Map({
@@ -193,7 +193,7 @@ require([
       content: legend,
       expanded: true,
       containerStyle: {
-        width: "150px",  // Ajuster la largeur
+        width: "250px",  // Ajuster la largeur
         height: "300px"  // Ajuster la hauteur
       }
     });
