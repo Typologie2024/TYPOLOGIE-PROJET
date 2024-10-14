@@ -1,0 +1,46 @@
+html,
+body,
+#viewDiv{
+
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+    
+ }
+ /* Réduction de la taille de la légende */
+.esri-legend {
+  max-width: 200px;  /* Réduit la largeur maximale de la légende */
+  max-height: 300px; /* Réduit la hauteur maximale de la légende */
+  overflow-y: auto;  /* Ajoute un défilement vertical si le contenu dépasse la hauteur */
+}
+
+.esri-legend__layer-cell {
+  font-size: 12px; /* Réduit la taille de la police des cellules de la légende */
+}
+
+.esri-legend__service-label,
+.esri-legend__layer-caption {
+  font-size: 10px; /* Réduit la taille de la police des étiquettes et des captions */
+}
+
+.esri-legend__layer-table {
+  max-width: 150px; /* Limite la largeur de la table des couches pour plus de compacité */
+}
+.esri-legend__service-label {
+  font-size: 12px !important; /* Taille de police des noms des couches */
+  font-weight: bold !important; /* Optionnel : texte en gras */
+}
+
+.esri-legend__layer-caption {
+  font-size: 10px !important; /* Taille de police des légendes des couches */
+}
+
+.esri-legend__layer-cell {
+  font-size: 10px !important; /* Taille de police des autres cellules */
+}
+
+.esri-legend__layer-table {
+  max-width: 150px !important; /* Limiter la taille de la table */
+}
+
