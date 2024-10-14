@@ -9,7 +9,7 @@ require([
     "esri/PopupTemplate"
   ], function(esriConfig, Map, MapView, FeatureLayer, Legend, Expand, Search, PopupTemplate) {
     
-    esriConfig.apiKey = "AAPT3NKHt6i2urmWtqOuugvr9eCsBZ6_O8t9W_sCdDNnfgW08GHta962zVBlg3cjNTLGZhv6V2ddUXE595GPthxOVowBaENeP1d6_JGiVhn-7y3vLoNZ4c38cLi_4xnpjT-_vs4wmvjhyBUwyfzqYf3seXloyMOEdo4orocI1XMTCMb8rARU7kCrg4SQDqiBiZNtFAF-erfxNZkqFZZ2N4o4Tr5Y--MpYE1WBxsEp83nNWyHXcg9_CP9VdN15Hghdbxc";
+    esriConfig.apiKey = "AAPT3NKHt6i2urmWtqOuugvr9eCsBZ6_O8t9W_sCdDNnfgWl7163yYwDFCAm-FgoQHBG4vXXO-TMDNgRj4dMGBAJk4MVb2QCcgSxF_DRtK5vK5hIs_fPaZf709UiDC87Yb-gkxCNixIfL8CLuQXHCW4WxY5dL8sHPIDDlBIsD951CaB1XHcHZ4lA8UdLWNhYzmRFIZlhCmNiYTQtQAnWHreYTGKpJGeuuFNYEwAnOWtajCnvWZWOp2NsRP1zYqyHOxdE";
 
     // Créer la carte avec un fond de carte satellite
     const map = new Map({
@@ -310,7 +310,18 @@ require([
       pachalikslayer.visible = event.target.checked;
     });
 
-    const caidatSqlQuery = ["--Choisir la requête SQL--", "Pop_Caidat>30000", "Nb_Commun>3", "Sup_Caidat>500"];
+    const caidatSqlQuery = [
+      "--Choisir la requête SQL--",
+      "Pop_Caidat > 30000",
+      "Nb_Commun = 1",
+      "Nb_Commun = 2",
+      "Nb_Commun = 3",
+      "Nb_Commun = 4",
+      "Nb_Commun = 5",
+      "Nb_Commun = 6",
+      "Sup_Caidat > 500"
+    ];
+    
 let whereClause = caidatSqlQuery[0];
 const select = document.createElement("select");
 
@@ -331,7 +342,7 @@ function queryFeatureLayer(extent) {
   const parcelQuery = {
     where: whereClause, // Clause WHERE
     geometry: extent, // Géométrie pour la requête spatiale
-    outFields: ["Pop_Caidat", "Nb_Commun", "Sup_Caidat"], // Champs à retourner
+    outFields: ["NOM_CAIDAT","Pop_Caidat", "Nb_Commun", "Sup_Caidat"], // Champs à retourner
     returnGeometry: true // Retourner la géométrie des entités
   };
 
@@ -364,8 +375,9 @@ function displayResults(results) {
   };
 
   const popupTemplate = {
-    title: "Caidats {NOM_CAIDAT}",
-    content: "Population: {Pop_Caidat} <br> Nombre Communes : {Nb_Commun} <br> Superficie {Sup_Caidat}"
+    title : "Caidats : {NOM_CAIDAT}",
+    content: "  Nom : {NOM_CAIDAT}, Population : {Pop_Caidat} <br> Nombre Caidats : {Nb_Commun} <br> Superficie : {Sup_Caidat} "
+  
   };
 
   // Appliquer les symboles et popupTemplate à chaque entité retournée
