@@ -9,7 +9,7 @@ require([
     "esri/PopupTemplate"
   ], function(esriConfig, Map, MapView, FeatureLayer, Legend, Expand, Search, PopupTemplate) {
     
-    esriConfig.apiKey = "AAPT3NKHt6i2urmWtqOuugvr9eCsBZ6_O8t9W_sCdDNnfgWl7163yYwDFCAm-FgoQHBG4vXXO-TMDNgRj4dMGBAJk4MVb2QCcgSxF_DRtK5vK5hIs_fPaZf709UiDC87Yb-gkxCNixIfL8CLuQXHCW4WxY5dL8sHPIDDlBIsD951CaB1XHcHZ4lA8UdLWNhYzmRFIZlhCmNiYTQtQAnWHreYTGKpJGeuuFNYEwAnOWtajCnvWZWOp2NsRP1zYqyHOxdE";
+    esriConfig.apiKey = "AAPT3NKHt6i2urmWtqOuugvr9eCsBZ6_O8t9W_sCdDNnfgWrFCSH9mGSjX-42IY-sjOv8DNW2xriZHAo5vA9uYkUTvzJDmcoyTxhQMqjYA8cQ5ySHAjrffVfhDrYomT5NsoX9ILE41vJWfYOk5LKE0SxRwHol84-xzE6TnBYnKEVvbEEY-5T3jRgixzlNO5zYQsJxOdWgn1y6sUA-zi_GBl-C-YQLVeubqKEdDcBdpJ60ZbhvV2ed2e5qcPdrSwT7-y0";
 
     // Créer la carte avec un fond de carte satellite
     const map = new Map({
@@ -124,28 +124,28 @@ require([
       popupTemplate:douarscaidatPopup
     });
     const caidatslayer = new FeatureLayer({
-      url:"https://services5.arcgis.com/ub6wowATi7TSDBGv/arcgis/rest/services/Découpage_administratif_du_Maroc/FeatureServer/4",
+      url:"https://services5.arcgis.com/ub6wowATi7TSDBGv/arcgis/rest/services/Découpage_maroc/FeatureServer/4",
       title:"Caidats",
       popupTemplate:caidatsPopup
     });
     const cercleslayer = new FeatureLayer({
-      url:"https://services5.arcgis.com/ub6wowATi7TSDBGv/arcgis/rest/services/Découpage_administratif_du_Maroc/FeatureServer/3",
+      url:"https://services5.arcgis.com/ub6wowATi7TSDBGv/arcgis/rest/services/Découpage_maroc/FeatureServer/3",
       title:"Cercles",
       popupTemplate:cerclesPopup
     });
     const pachalikslayer = new FeatureLayer({
-      url:"https://services5.arcgis.com/ub6wowATi7TSDBGv/arcgis/rest/services/Découpage_administratif_du_Maroc/FeatureServer/2",
+      url:"https://services5.arcgis.com/ub6wowATi7TSDBGv/arcgis/rest/services/Découpage_maroc/FeatureServer/2",
       title:"Pachaliks",
       popupTemplate:pachalikPopup
     });
     const provincelayer = new FeatureLayer({
-      url: "https://services5.arcgis.com/ub6wowATi7TSDBGv/arcgis/rest/services/Découpage_administratif_du_Maroc/FeatureServer/1",
+      url: "https://services5.arcgis.com/ub6wowATi7TSDBGv/arcgis/rest/services/Découpage_maroc/FeatureServer/1",
       title: "Provinces",
       popupTemplate:provincesPopup
     });
   
     const regionslayer = new FeatureLayer({
-      url: "https://services5.arcgis.com/ub6wowATi7TSDBGv/arcgis/rest/services/Découpage_administratif_du_Maroc/FeatureServer/0",
+      url: "https://services5.arcgis.com/ub6wowATi7TSDBGv/arcgis/rest/services/Découpage_maroc/FeatureServer/0",
       title: "Régions",
       popupTemplate:regionsPopup
     });
