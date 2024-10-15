@@ -9,7 +9,7 @@ require([
     "esri/PopupTemplate"
   ], function(esriConfig, Map, MapView, FeatureLayer, Legend, Expand, Search, PopupTemplate) {
     
-    esriConfig.apiKey = "AAPT3NKHt6i2urmWtqOuugvr9eCsBZ6_O8t9W_sCdDNnfgVjmObUBJmjqKZdCT_N4pbutpZIdRtoRcPg0z7CegXzW_Q66k5xqECqWvEkfeOXWcfuUwGZz91gOuZ7HwAg9JD09EXxZLAoZcZFS6QSoiwUT2dPmHMjn4zjShLQnJg342AoaZJ3Q9k-4Sb4Xj_vwvJWkPWKdKx1P62buDnxEL1A0JwDURo9mX3wRcl1UbN6k_BX59clx0WZ3wSYJAy5joRG";
+    esriConfig.apiKey = "AAPT3NKHt6i2urmWtqOuugvr9eCsBZ6_O8t9W_sCdDNnfgXF6U_aBqGVuIOE5MBC-KEYUrM_WJZrHhbCv7N6lqBH-mTserN7VHFMitisigz-G8Am__25738OU_ceMNryrX0Kg6wFf__WCGCkXDBQDDzBpaYp5t8wRXyrmF1p5cwhb6mvxJlbKrMyD34QySRr7xOdqS4IKz20MBuFsylxx4r7D6Uhz1l5oSeGriHQF-ntinJSADNnPoj4iJhQobntrnY5";
 
     // Créer la carte avec un fond de carte satellite
     const map = new Map({
@@ -22,6 +22,38 @@ require([
       center: [-8.7772, 29.8746], 
       zoom: 5,
       container: "viewDiv"
+    });
+    const provincialPopup = new PopupTemplate({
+      title:"Routes Provinciales",
+      content:`
+      <ul>
+      <li>Nom : {Nom}</li>
+      <li>Longueur : {Longueur}Km</li>  
+     </ul> `
+    });
+    const regionalPopup = new PopupTemplate({
+      title:"Routes Régionales",
+      content:`
+      <ul>
+      <li>Nom : {Nom}</li>
+      <li>Longueur : {Longueur}Km</li>  
+     </ul>`
+    });
+    const natianalePopup = new PopupTemplate({
+      title:"Routes Nationales",
+      content:`
+      <ul>
+      <li>Nom : {Nom}</li>
+      <li>Longueur : {Longueur}Km</li>  
+     </ul> `
+    });
+    const autoroutePopup = new PopupTemplate({
+      title: "Autoroutes",
+      content:`
+      <ul>
+      <li>Nom : {Nom}</li>
+      <li>Longueur : {Longueur}Km</li> 
+     </ul> `
     });
     const douarscaidatPopup = new PopupTemplate({
       title:"Douars Par Caidats",
@@ -118,6 +150,28 @@ require([
       </ul>` 
     
     });
+    const provincialayer = new FeatureLayer({
+      url:"https://services5.arcgis.com/ub6wowATi7TSDBGv/arcgis/rest/services/Infrastructures_Routières/FeatureServer/45",
+      title:"Routes Provinciales",
+      popupTemplate:provincialPopup
+    });
+    const rregionallayer = new FeatureLayer({
+      url:"https://services5.arcgis.com/ub6wowATi7TSDBGv/arcgis/rest/services/Infrastructures_Routières/FeatureServer/69",
+      title:"Routes Régionales",
+      popupTemplate:regionalPopup
+    });
+    const rnationallayer = new FeatureLayer({
+      url:"https://services5.arcgis.com/ub6wowATi7TSDBGv/arcgis/rest/services/Infrastructures_Routières/FeatureServer/60",
+      title:"Routes Nationales",
+      popupTemplate:natianalePopup
+    });
+
+    const autoroutelayer = new FeatureLayer({
+      url: "https://services5.arcgis.com/ub6wowATi7TSDBGv/arcgis/rest/services/Infrastructures_Routières/FeatureServer/51",
+      title:"Autoroutes",
+      popupTemplate:autoroutePopup
+    });
+    
     const  douarslayer = new FeatureLayer({
       url:"https://services5.arcgis.com/ub6wowATi7TSDBGv/arcgis/rest/services/DOUARS_DU_MAROC/FeatureServer/7",
       title:"Douars",
@@ -149,6 +203,10 @@ require([
       title: "Régions",
       popupTemplate:regionsPopup
     });
+    map.add(provincialayer);
+    map.add(rregionallayer);
+    map.add(rnationallayer);
+    map.add(autoroutelayer);
     map.add(douarslayer);
     map.add(caidatslayer);
     map.add(cercleslayer);
@@ -160,6 +218,22 @@ require([
     var legend = new Legend({
       view: view,
       layerInfos: [
+        {
+          layer : provincialayer,
+          title : "Routes Provinciales"
+        },
+        {
+          layer : rregionallayer,
+          title : "Routes Régionales"
+        },
+        {
+          layer : rnationallayer,
+          title : "Routes Nationales"
+        },
+        {
+          layes : autoroutelayer,
+          title : "Autoroutes"
+        },
         {
           layer: douarslayer,
           title:"Douars"
@@ -210,6 +284,62 @@ require([
       view.ui.add(searchWidget, {
         position: "top-right"
       });
+           // Ajouter une source pour le FeatureLayer des Douars
+    searchWidget.sources.push({
+      layer: provincialayer,              // FeatureLayer des Douars
+      searchFields: ["Nom"],           // Champ utilisé pour la recherche dans les Douars
+      displayField: "Nom",             // Champ affiché dans les résultats pour les Douars
+      exactMatch: false,               
+      outFields: ["*"],                // Tous les champs retournés dans les résultats
+      name: "Routes Provinciales",                  // Nom affiché dans les résultats de recherche
+      placeholder: "Rechercher Routes Provinciales ",  // Texte d'aide dans la barre de recherche
+      maxResults: 6,                   // Limite des résultats affichés
+      maxSuggestions: 6,               // Limite des suggestions automatiques
+      suggestionsEnabled: true,        // Suggestions automatiques activées
+      minSuggestCharacters: 1          // Nombre minimum de caractères avant les suggestions
+    });
+         // Ajouter une source pour le FeatureLayer des Douars
+    searchWidget.sources.push({
+      layer: rregionallayer,              // FeatureLayer des Douars
+      searchFields: ["Nom"],           // Champ utilisé pour la recherche dans les Douars
+      displayField: "Nom",             // Champ affiché dans les résultats pour les Douars
+      exactMatch: false,               
+      outFields: ["*"],                // Tous les champs retournés dans les résultats
+      name: "Routes Régionales",                  // Nom affiché dans les résultats de recherche
+      placeholder: "Rechercher Routes Régionales ",  // Texte d'aide dans la barre de recherche
+      maxResults: 6,                   // Limite des résultats affichés
+      maxSuggestions: 6,               // Limite des suggestions automatiques
+      suggestionsEnabled: true,        // Suggestions automatiques activées
+      minSuggestCharacters: 1          // Nombre minimum de caractères avant les suggestions
+    });
+         // Ajouter une source pour le FeatureLayer des Douars
+    searchWidget.sources.push({
+      layer: rnationallayer,              // FeatureLayer des Douars
+      searchFields: ["Nom"],           // Champ utilisé pour la recherche dans les Douars
+      displayField: "Nom",             // Champ affiché dans les résultats pour les Douars
+      exactMatch: false,               
+      outFields: ["*"],                // Tous les champs retournés dans les résultats
+      name: "Routes Nationales",                  // Nom affiché dans les résultats de recherche
+      placeholder: "Rechercher Routes Nationales",  // Texte d'aide dans la barre de recherche
+      maxResults: 6,                   // Limite des résultats affichés
+      maxSuggestions: 6,               // Limite des suggestions automatiques
+      suggestionsEnabled: true,        // Suggestions automatiques activées
+      minSuggestCharacters: 1          // Nombre minimum de caractères avant les suggestions
+    });
+       // Ajouter une source pour le FeatureLayer des Douars
+    searchWidget.sources.push({
+      layer: autoroutelayer,              // FeatureLayer des Douars
+      searchFields: ["Nom"],           // Champ utilisé pour la recherche dans les Douars
+      displayField: "Nom",             // Champ affiché dans les résultats pour les Douars
+      exactMatch: false,               
+      outFields: ["*"],                // Tous les champs retournés dans les résultats
+      name: "Autoroutes",                  // Nom affiché dans les résultats de recherche
+      placeholder: "Rechercher Autoroute",  // Texte d'aide dans la barre de recherche
+      maxResults: 6,                   // Limite des résultats affichés
+      maxSuggestions: 6,               // Limite des suggestions automatiques
+      suggestionsEnabled: true,        // Suggestions automatiques activées
+      minSuggestCharacters: 1          // Nombre minimum de caractères avant les suggestions
+    });
     
      // Ajouter une source pour le FeatureLayer des Douars
     searchWidget.sources.push({
