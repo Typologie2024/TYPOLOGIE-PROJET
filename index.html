@@ -16,15 +16,44 @@
 <div id="map"></div>
 <div id="legend" class="legend"></div>
 <div id="layerControls" style="position: absolute; bottom: 10px; right: 10px; background: rgba(255, 255, 255, 0.9); padding: 5px; border: 1px solid black;">
-  <h3 style="font-size: 14px; margin-bottom: 5px;">Couches</h3>
-  <label><input type="checkbox" id="regionsLayerCheckbox" checked> Régions</label><br>
-  <label><input type="checkbox" id="provincesLayerCheckbox" checked> Provinces</label><br>
-  <label><input type="checkbox" id="pachalikLayerCheckbox" checked> Pachalik</label><br>
-  <label><input type="checkbox" id="cerclesLayerCheckbox" checked> Cercles</label><br>
-  <label><input type="checkbox" id="caidatsLayerCheckbox" checked> Caidats</label><br>
-  <label><input type="checkbox" id="douarsLayerCheckbox" checked> Douars</label><br>  
-</div>
+  <!-- Ajouter le bouton dans la barre des couches -->
+  <button id="toggleLayerControl" style="float: right; font-size: 10px; margin-bottom: 5px;">▲</button>
   
+  <h3 style="font-size: 12px; margin-bottom: 5px;">Couches</h3>
+
+  <!-- Section pour le découpage administratif -->
+  <h4 style="font-size: 12px; margin-bottom: 5px;">Découpage administratif</h4>
+
+  <input type="checkbox" id="regionCheckbox" checked>
+  <label for="regionCheckbox" style="font-size: 12px;">Régions</label><br>
+
+  <input type="checkbox" id="provinceCheckbox" checked>
+  <label for="provinceCheckbox" style="font-size: 12px;">Provinces</label><br>
+
+  <input type="checkbox" id="pachalikCheckbox" checked>
+  <label for="pachalikCheckbox" style="font-size: 12px;">Pachaliks</label><br>
+
+  <input type="checkbox" id="cerclesLayerCheckbox" checked>
+  <label for="cerclesLayerCheckbox" style="font-size: 12px;">Cercles</label><br>
+
+  <input type="checkbox" id="caidatCheckbox" checked>
+  <label for="caidatCheckbox" style="font-size: 12px;">Caidats</label><br>
+
+  <!-- Section pour les infrastructures routières -->
+  <h4 style="font-size: 12px; margin-top: 10px; margin-bottom: 5px;">Infrastructures routières</h4>
+
+  <input type="checkbox" id="autorouteCheckbox" checked>
+  <label for="autorouteCheckbox" style="font-size: 12px;">Autoroutes</label><br>
+
+  <input type="checkbox" id="rnationallayerCheckbox" checked>
+  <label  for="rnationallayerCheckbox" style="font-size: 12px;">Routes Nationales</label><br>
+
+  <input type="checkbox" id="rregionallayerCheckbox" checked>
+  <label  for="rregionallayerCheckbox" style="font-size: 12px;">Routes Régionales</label><br>
+
+  <input type="checkbox" id="provincialayerCheckbox" checked>
+  <label  for="provincialayerCheckbox" style="font-size: 12px;">Routes Provinciales</label><br>
+</div>
 </div>
 <body>
 <html>

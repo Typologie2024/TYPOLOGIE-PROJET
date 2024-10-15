@@ -9,7 +9,7 @@ require([
     "esri/PopupTemplate"
   ], function(esriConfig, Map, MapView, FeatureLayer, Legend, Expand, Search, PopupTemplate) {
     
-    esriConfig.apiKey = "AAPT3NKHt6i2urmWtqOuugvr9eCsBZ6_O8t9W_sCdDNnfgXF6U_aBqGVuIOE5MBC-KEYUrM_WJZrHhbCv7N6lqBH-mTserN7VHFMitisigz-G8Am__25738OU_ceMNryrX0Kg6wFf__WCGCkXDBQDDzBpaYp5t8wRXyrmF1p5cwhb6mvxJlbKrMyD34QySRr7xOdqS4IKz20MBuFsylxx4r7D6Uhz1l5oSeGriHQF-ntinJSADNnPoj4iJhQobntrnY5";
+    esriConfig.apiKey = "AAPT3NKHt6i2urmWtqOuugvr9eCsBZ6_O8t9W_sCdDNnfgWy2Hbw6qWezYGii445X8odGCorOsvliLreuJq9-h-UN2E6fO0cq3vA-XL17RxjnWtvWtM6Ouzn5zQ1HpQ2IOVTTpUQn3j9lYG486ElaA-eZsK3eZBXdKfORa6XymmadGqUIdJbtnryg8T-8N1Nwf68_xWVrwXO4Ggav4ZXXCRBc4DkcLFmw_LSmKPJIlDg1qMCl6dt5ScC_QevcXI_HT3colZ8ZCFP55UIBQLvaoygPlP1uYs4uvLrnJ6IZP-f63g.";
 
     // Créer la carte avec un fond de carte satellite
     const map = new Map({
@@ -31,6 +31,15 @@ require([
       <li>Longueur : {Longueur}Km</li>  
      </ul> `
     });
+    var provincialRenderer = {
+      type: "simple", // Utilise un simple renderer pour tous les objets
+      symbol: {
+        type: "simple-line",  // Utilisation d'une ligne simple pour représenter les autoroutes
+        color: [255,255, 0,],   // Bleu pour les lignes d'autoroute
+        width: 1,             // Épaisseur des lignes
+        style: "solid"        // Style de ligne plein (solid, dash, dot, etc.)
+      }
+    };
     const regionalPopup = new PopupTemplate({
       title:"Routes Régionales",
       content:`
@@ -39,6 +48,15 @@ require([
       <li>Longueur : {Longueur}Km</li>  
      </ul>`
     });
+    var regionalRenderer = {
+      type: "simple", // Utilise un simple renderer pour tous les objets
+      symbol: {
+        type: "simple-line",  // Utilisation d'une ligne simple pour représenter les autoroutes
+        color: [0,255, 0,],   // Bleu pour les lignes d'autoroute
+        width: 1,             // Épaisseur des lignes
+        style: "solid"        // Style de ligne plein (solid, dash, dot, etc.)
+      }
+    };
     const natianalePopup = new PopupTemplate({
       title:"Routes Nationales",
       content:`
@@ -47,6 +65,15 @@ require([
       <li>Longueur : {Longueur}Km</li>  
      </ul> `
     });
+    var natianaleRenderer = {
+      type: "simple", // Utilise un simple renderer pour tous les objets
+      symbol: {
+        type: "simple-line",  // Utilisation d'une ligne simple pour représenter les autoroutes
+        color: [255, 0, 0],   // Bleu pour les lignes d'autoroute
+        width: 1.5,             // Épaisseur des lignes
+        style: "solid"        // Style de ligne plein (solid, dash, dot, etc.)
+      }
+    };
     const autoroutePopup = new PopupTemplate({
       title: "Autoroutes",
       content:`
@@ -55,6 +82,15 @@ require([
       <li>Longueur : {Longueur}Km</li> 
      </ul> `
     });
+    var autorouteRenderer = {
+      type: "simple", // Utilise un simple renderer pour tous les objets
+      symbol: {
+        type: "simple-line",  // Utilisation d'une ligne simple pour représenter les autoroutes
+        color: [0, 0, 255],   // Bleu pour les lignes d'autoroute
+        width: 1.5,             // Épaisseur des lignes
+        style: "solid"        // Style de ligne plein (solid, dash, dot, etc.)
+      }
+    };
     const douarscaidatPopup = new PopupTemplate({
       title:"Douars Par Caidats",
       content:`
@@ -153,23 +189,27 @@ require([
     const provincialayer = new FeatureLayer({
       url:"https://services5.arcgis.com/ub6wowATi7TSDBGv/arcgis/rest/services/Infrastructures_Routières/FeatureServer/45",
       title:"Routes Provinciales",
-      popupTemplate:provincialPopup
+      popupTemplate:provincialPopup,
+      renderer: provincialRenderer
     });
     const rregionallayer = new FeatureLayer({
       url:"https://services5.arcgis.com/ub6wowATi7TSDBGv/arcgis/rest/services/Infrastructures_Routières/FeatureServer/69",
       title:"Routes Régionales",
-      popupTemplate:regionalPopup
+      popupTemplate:regionalPopup,
+      renderer:regionalRenderer
     });
     const rnationallayer = new FeatureLayer({
       url:"https://services5.arcgis.com/ub6wowATi7TSDBGv/arcgis/rest/services/Infrastructures_Routières/FeatureServer/60",
       title:"Routes Nationales",
-      popupTemplate:natianalePopup
+      popupTemplate:natianalePopup,
+      renderer: natianaleRenderer
     });
 
     const autoroutelayer = new FeatureLayer({
       url: "https://services5.arcgis.com/ub6wowATi7TSDBGv/arcgis/rest/services/Infrastructures_Routières/FeatureServer/51",
       title:"Autoroutes",
-      popupTemplate:autoroutePopup
+      popupTemplate:autoroutePopup,
+      renderer: autorouteRenderer
     });
     
     const  douarslayer = new FeatureLayer({
@@ -219,22 +259,22 @@ require([
       view: view,
       layerInfos: [
         {
-          layer : provincialayer,
-          title : "Routes Provinciales"
+          layer: autoroutelayer,
+          title:"Autoroutes"
         },
         {
-          layer : rregionallayer,
-          title : "Routes Régionales"
+          layer: rnationallayer,
+          title: "Route Nationales"
         },
         {
-          layer : rnationallayer,
-          title : "Routes Nationales"
+          layer: rregionallayer,
+        title: "Routes Régionales"
         },
         {
-          layes : autoroutelayer,
-          title : "Autoroutes"
+          layer: provincialayer,
+          title: "Routes Provinciales"
         },
-        {
+        {   
           layer: douarslayer,
           title:"Douars"
         },
@@ -259,6 +299,7 @@ require([
           layer: regionslayer,
           title: "Régions"
         }
+        
       ]
     });
   
@@ -415,6 +456,21 @@ require([
     suggestionsEnabled: true,
     minSuggestCharacters: 1
   });
+// Référence au div contenant les couches et au bouton
+const layerControlsDiv = document.getElementById("layerControls");
+const toggleButton = document.getElementById("toggleLayerControl");
+
+// Fonction pour basculer la visibilité de la barre des couches
+toggleButton.addEventListener("click", function() {
+  if (layerControlsDiv.style.height === "auto") {
+    layerControlsDiv.style.height = "30px"; // Masque les couches, réduit la hauteur
+    toggleButton.innerHTML = "▼"; // Change le symbole pour indiquer l'expansion
+  } else {
+    layerControlsDiv.style.height = "auto";  // Affiche la barre des couches
+    toggleButton.innerHTML = "▲"; // Change le symbole pour indiquer la réduction
+  }
+});
+
     // Gérer la visibilité des couches avec les cases à cocher
     document.getElementById("douarsLayerCheckbox").addEventListener("change", function(event) {
       douarslayer.visible = event.target.checked;
@@ -427,17 +483,33 @@ require([
     document.getElementById("cerclesLayerCheckbox").addEventListener("change", function(event) {
       cercleslayer.visible = event.target.checked;
     });
-  
-    document.getElementById("regionsLayerCheckbox").addEventListener("change", function(event) {
-      regionslayer.visible = event.target.checked;
+    document.getElementById("pachalikLayerCheckbox").addEventListener("change", function(event) {
+      pachalikslayer.visible = event.target.checked;
     });
   
     document.getElementById("provincesLayerCheckbox").addEventListener("change", function(event) {
       provincelayer.visible = event.target.checked;
     });
   
-    document.getElementById("pachalikLayerCheckbox").addEventListener("change", function(event) {
-      pachalikslayer.visible = event.target.checked;
+    document.getElementById("regionsLayerCheckbox").addEventListener("change", function(event) {
+      regionslayer.visible = event.target.checked;
+    });
+
+    // Gérer la visibilité des couches avec les cases à cocher
+  document.getElementById("autoroutelayerChecKbox").addEventListener("change", function(event) {
+    autoroutelayer.visible = event. target.checked;
+  });
+     // Gérer la visibilité des couches avec les cases à cocher
+     document.getElementById("rnationallayerCheckbox").addEventListener("change", function(event) {
+      rnationallayer.visible = event. target.checked;
+    });
+     // Gérer la visibilité des couches avec les cases à cocher
+     document.getElementById("rregionallayerCheckbox").addEventListener("change", function(event) {
+      rregionallayer.visible = event. target.checked;
+    });
+     // Gérer la visibilité des couches avec les cases à cocher
+     document.getElementById("provincialayerCheckbox").addEventListener("change", function(event) {
+      provincialayer.visible = event. target.checked;
     });
 
     const caidatSqlQuery = [
@@ -523,3 +595,4 @@ function displayResults(results) {
 }
 
 });
+

@@ -43,4 +43,11 @@ body,
 .esri-legend__layer-table {
   max-width: 150px !important; /* Limiter la taille de la table */
 }
+#layerControls h4 {
+  margin-top: 10px;
+  font-size: 12px;
+  font-weight: bold;
+  border-bottom: 1px solid #ccc; /* Soulignement pour séparer les sections */
+  padding-bottom: 3px;
+}
 
