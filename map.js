@@ -9,7 +9,7 @@ require([
     "esri/PopupTemplate"
   ], function(esriConfig, Map, MapView, FeatureLayer, Legend, Expand, Search, PopupTemplate) {
     
-    esriConfig.apiKey = "AAPT3NKHt6i2urmWtqOuugvr9eCsBZ6_O8t9W_sCdDNnfgXEV2OIbRnX2aO1Vlr4hMeSvmM8O3FYqu5er44owyMaVq4srxQDaSLxB9s6rheba-yZMogefBAWGoXrPW71OwRqBZFGVDN_85KvoWZbZyY4eLsZ9pebb3XzBTGuvJ8mTFNDbK2WPjpLl3e9qf5TrtVSLNWxJLYtKlUSPhAeaPFwRYJcbLfJ2TW7Kue_FW6INIcz3eXTyF0KDHeSmbT0A8it9D1G4nVl1WvnLEvBG7P_xphjMLGi1OhXQHYw5oJrvvs.";
+    esriConfig.apiKey = "AAPT3NKHt6i2urmWtqOuugvr9eCsBZ6_O8t9W_sCdDNnfgVjXQMlKCpI1hmZTPJF5AnQlC6Cf79lAJ0v96_BGRfUt3tMGhIUiOFciCC0i2POYkcVk8PQuvsrxYedzbDlXw7CFUnA3SS5H4Labff4S01ILUURGmmbGJ2HD0opLeCBs378feRV5TiVrPZd_MoR0-jinnkN_vI-KPtKGq9aO4DlICp1Ir72yKT2ugepncyLBJjrqY-0v8uc2tLby5ZWUs3D9Mi5j5Vwrn1oWiYLQP1cI5YlUxtvrhYb-JKh8FgUU-w.";
 
     // Créer la carte avec un fond de carte satellite
     const map = new Map({
@@ -89,6 +89,51 @@ require([
         color: [0, 0, 255],   // Bleu pour les lignes d'autoroute
         width: 1.5,             // Épaisseur des lignes
         style: "solid"        // Style de ligne plein (solid, dash, dot, etc.)
+      }
+    };
+    const barragepachalikPopup = new PopupTemplate({
+      title:"Barrages par Caidats",
+      content:`
+      <ul>
+      <li>Nom: {nom_barrag}</li>
+      <li>Coordonnées: {Longitude},{Latitude}</li>
+      <li>Pachalik: {NOM_PACHAL}</li>
+      <li>Parent: {PARENT_PAC}</li> 
+      </ul>`
+    });
+    var barragepachalikRenderer = {
+      type: "simple", // Utilise un simple renderer pour tous les objets
+      symbol: {
+        type: "simple-marker",  // Utilise un symbole de marqueur simple pour représenter les points
+        color: [0, 0, 255],     // Bleu pour les points
+        size: 8,                // Taille des points
+        outline: {
+          color: [255, 255, 255],  // Bordure blanche autour des points
+          width: 1             // Épaisseur de la bordure
+        }
+      }
+    };
+    const barragescaidatPopup = new PopupTemplate({
+      title:"Barrages par Pachaliks",
+      content:`
+      <ul>
+      <li>Nom: {nom_barrag}</li>
+      <li>Coordonnées: {Longitude},{Latitude}</li>
+      <li>Caidat: {NOM_CAIDAT}</li>
+      <li>Parent: {PARENT_CAI}</li>
+      <li>Province: {PROVINCE_C}</li>
+      </ul>`
+    });
+    var barragecaidatRenderer = {
+      type: "simple", // Utilise un simple renderer pour tous les objets
+      symbol: {
+        type: "simple-marker",  // Utilise un symbole de marqueur simple pour représenter les points
+        color: [0, 0, 255],     // Bleu pour les points
+        size: 8,                // Taille des points
+        outline: {
+          color: [255, 255, 255],  // Bordure blanche autour des points
+          width: 1             // Épaisseur de la bordure
+        }
       }
     };
     const douarscaidatPopup = new PopupTemplate({
@@ -185,7 +230,26 @@ require([
       <li>Superficie:{Superficie}Km²</li>
       </ul>` 
     
-    });
+    
+  });
+  const barragespachaliklayer = new FeatureLayer({
+    url:"https://services5.arcgis.com/ub6wowATi7TSDBGv/arcgis/rest/services/Barrages/FeatureServer/72",
+    title:"Barrages par Pachaliks",
+    popupTemplate:barragepachalikPopup,
+    renderer:barragepachalikRenderer
+  });
+  const barragecaidatlayer = new FeatureLayer({
+    url:"https://services5.arcgis.com/ub6wowATi7TSDBGv/arcgis/rest/services/Barrages/FeatureServer/71",
+    title:"Barrages par Caidats",
+    popupTemplate:barragescaidatPopup,
+    renderer:barragecaidatRenderer
+  });
+  
+  const  douarslayer = new FeatureLayer({
+    url:"https://services5.arcgis.com/ub6wowATi7TSDBGv/arcgis/rest/services/DOUARS_DU_MAROC/FeatureServer/7",
+    title:"Douars",
+    popupTemplate:douarscaidatPopup
+  });
     const provincialayer = new FeatureLayer({
       url:"https://services5.arcgis.com/ub6wowATi7TSDBGv/arcgis/rest/services/Infrastructures_Routières/FeatureServer/45",
       title:"Routes Provinciales",
@@ -210,12 +274,6 @@ require([
       title:"Autoroutes",
       popupTemplate:autoroutePopup,
       renderer: autorouteRenderer
-    });
-    
-    const  douarslayer = new FeatureLayer({
-      url:"https://services5.arcgis.com/ub6wowATi7TSDBGv/arcgis/rest/services/DOUARS_DU_MAROC/FeatureServer/7",
-      title:"Douars",
-      popupTemplate:douarscaidatPopup
     });
     const caidatslayer = new FeatureLayer({
       url:"https://services5.arcgis.com/ub6wowATi7TSDBGv/arcgis/rest/services/Découpage_maroc/FeatureServer/4",
@@ -243,6 +301,8 @@ require([
       title: "Régions",
       popupTemplate:regionsPopup
     });
+    map.add(barragespachaliklayer);
+    map.add(barragecaidatlayer);
     map.add(provincialayer);
     map.add(rregionallayer);
     map.add(rnationallayer);
@@ -258,6 +318,18 @@ require([
     var legend = new Legend({
       view: view,
       layerInfos: [
+        {   
+          layer: douarslayer,
+          title:"Douars"
+        },
+        {
+          layer: barragecaidatlayer,
+          title:"Barrage par Caidats"
+        },
+        {
+          layer: barragespachaliklayer,
+          title: "Barrage par Pachaliks"
+        },
         {
           layer: autoroutelayer,
           title:"Autoroutes"
@@ -274,10 +346,7 @@ require([
           layer: provincialayer,
           title: "Routes Provinciales"
         },
-        {   
-          layer: douarslayer,
-          title:"Douars"
-        },
+        
         {
           layer: caidatslayer,
           title:"Caidats"
@@ -325,6 +394,35 @@ require([
       view.ui.add(searchWidget, {
         position: "top-right"
       });
+             // Ajouter une source pour le FeatureLayer des Douars
+    searchWidget.sources.push({
+      layer: barragespachaliklayer,              // FeatureLayer des Douars
+      searchFields: ["Nom"],           // Champ utilisé pour la recherche dans les Douars
+      displayField: "Nom",             // Champ affiché dans les résultats pour les Douars
+      exactMatch: false,               
+      outFields: ["*"],                // Tous les champs retournés dans les résultats
+      name: "Barrages par Pachalik",                  // Nom affiché dans les résultats de recherche
+      placeholder: "Rechercher Barrage ",  // Texte d'aide dans la barre de recherche
+      maxResults: 6,                   // Limite des résultats affichés
+      maxSuggestions: 6,               // Limite des suggestions automatiques
+      suggestionsEnabled: true,        // Suggestions automatiques activées
+      minSuggestCharacters: 1          // Nombre minimum de caractères avant les suggestions
+    });
+       // Ajouter une source pour le FeatureLayer des Douars
+      searchWidget.sources.push({
+      layer: barragecaidatlayer,              // FeatureLayer des Douars
+      searchFields: ["Nom"],           // Champ utilisé pour la recherche dans les Douars
+      displayField: "Nom",             // Champ affiché dans les résultats pour les Douars
+      exactMatch: false,               
+      outFields: ["*"],                // Tous les champs retournés dans les résultats
+      name: "Barrages par Caidat",                  // Nom affiché dans les résultats de recherche
+      placeholder: "Rechercher Barrage ",  // Texte d'aide dans la barre de recherche
+      maxResults: 6,                   // Limite des résultats affichés
+      maxSuggestions: 6,               // Limite des suggestions automatiques
+      suggestionsEnabled: true,        // Suggestions automatiques activées
+      minSuggestCharacters: 1          // Nombre minimum de caractères avant les suggestions
+            });
+            
            // Ajouter une source pour le FeatureLayer des Douars
     searchWidget.sources.push({
       layer: provincialayer,              // FeatureLayer des Douars
@@ -470,6 +568,14 @@ toggleButton.addEventListener("click", function() {
     toggleButton.innerHTML = "▲"; // Change le symbole pour indiquer la réduction
   }
 });
+     // Gérer la visibilité des couches avec les cases à cocher
+     document.getElementById("barragespachalikCheckbox").addEventListener("change", function(event) {
+      barragespachaliklayer.visible = event.target.checked;
+     });
+     // Gérer la visibilité des couches avec les cases à cocher
+     document.getElementById("").addEventListener("change", function(event) {
+      barragecaidatlayer.visible = event.target.checked;
+     });
 
     // Gérer la visibilité des couches avec les cases à cocher
     document.getElementById("douarsLayerCheckbox").addEventListener("change", function(event) {
